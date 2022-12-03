@@ -1,0 +1,17 @@
+venv/
+.gitognore
+db.sqlite3
+back_media/*
+back_static/*
+**/__pychache__/**.py
+# **/migrations/**.py
+src/db.sqlite3
+.venv/*
+db.sqlite3
+.env
+.idea/
+back_media/
+static/
+media/
+venv/
+*.pyc
