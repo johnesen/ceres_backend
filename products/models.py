@@ -97,7 +97,6 @@ class CartItem(BaseModel):
         verbose_name=_("art item"),
         related_name="cart_item",
     )
-    product_amount = models.IntegerField()
     sum_amount_price = models.DecimalField(
         blank=False,
         null=False,

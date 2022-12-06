@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from products.models import *
 from catalogs.serializers import CatalogSerializer
+from users.serializers import UserSerializer
 
 class CharacteristicSerializer(serializers.Serializer):
     id = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -36,26 +37,24 @@ class ProductSerializer(serializers.Serializer):
 
 # serilizers for cart, cart items and orders
 
-class CartItemSerializer(serializers.Serializer):
-    id = serializers.PrimaryKeyRelatedField(read_only=True)
-    product = serializers.CharField()
-    product_amont = serializers.IntegerField()
-    sum_amount_price = serializers.DecimalField(max_digits=20, decimal_places=2)
-    item_amount = serializers.IntegerField()
+class CartItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = ("id", "product", "sum_amount_price", "quantity")
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['product'] = ProductSerializer()
+        data['product'] = ProductSerializer(instance.product).data
         return data
 
 
-class CartSerializer(serializers.Serializer):
-    id = serializers.PrimaryKeyRelatedField(read_only=True)
-    items = serializers.ListField()
-    general_price = serializers.DecimalField(max_digits=20, decimal_places=2)
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cart
+        fields = ('id', "items", 'general_price', "user")
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['items'] = CartItemSerializer(many=True)
+        # data['items'] = CartItemSerializer(instance.items, many=True),data
+        data['user'] = UserSerializer(instance.user).data
         return data

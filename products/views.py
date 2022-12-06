@@ -25,7 +25,14 @@ class ProductListAPIView(generics.ListAPIView):
 
 
 class CartItemAPIView(generics.CreateAPIView):
+    schema = CartItemSchema()
     permission_classes = (AllowAny, )
-    queryset = Product.objects.filter(is_deleted=False).order_by("-created_at")
+    queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
-    
+
+
+class CartAPIView(generics.ListCreateAPIView):
+    schema = CartSchema()
+    permission_classes = (AllowAny, )
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer

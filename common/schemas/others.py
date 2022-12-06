@@ -73,3 +73,72 @@ class ProductListSchema(AutoSchema):
             ]
 
         return self._manual_fields + api_fields
+
+
+class CartItemSchema(AutoSchema):
+    def get_manual_fields(self, path, method):
+        api_fields = []
+        if method == "POST":
+            api_fields = [
+                coreapi.Field(
+                    name="product",
+                    required=False,
+                    location="form",
+                    schema=coreschema.String(
+                        description="product id"
+                    ),
+                ),
+                coreapi.Field(
+                    name="sum_amount_price",
+                    required=False,
+                    location="form",
+                    schema=coreschema.String(
+                        description="decimal_field, example: 3213423.23"
+                    ),
+                ),
+                coreapi.Field(
+                    name="quantity",
+                    required=False,
+                    location="form",
+                    schema=coreschema.String(
+                        description="integer field, example; 5"
+                    ),
+                ),
+            ]
+
+        return self._manual_fields + api_fields
+
+
+
+class CartSchema(AutoSchema):
+    def get_manual_fields(self, path, method):
+        api_fields = []
+        if method == "POST":
+            api_fields = [
+                coreapi.Field(
+                    name="items",
+                    required=False,
+                    location="form",
+                    schema=coreschema.String(
+                        description="list of items"
+                    ),
+                ),
+                coreapi.Field(
+                    name="general_price",
+                    required=False,
+                    location="form",
+                    schema=coreschema.String(
+                        description="sum of item sums"
+                    ),
+                ),
+                coreapi.Field(
+                    name="user",
+                    required=False,
+                    location="form",
+                    schema=coreschema.String(
+                        description="user id"
+                    ),
+                ),
+            ]
+
+        return self._manual_fields + api_fields
