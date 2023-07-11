@@ -8,20 +8,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "djongo",
-#         "NAME": "ceres",
-#         "CLIENT": {
-#             "host": "mongodb:27017",
-#             "port": 27017,
-#             "username": "root",
-#             "password": "mongoadmin",
-#             "authMechanism": "SCRAM-SHA-1",
-#         },
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
